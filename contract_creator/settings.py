@@ -94,3 +94,8 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+BLANK_PATH = env("BLANK_PATH")
+CONTRACT_PATH = env("CONTRACT_PATH")
+
