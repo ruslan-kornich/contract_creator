@@ -1,12 +1,15 @@
+from random import randint
+
 import requests
 from bs4 import BeautifulSoup
 
 from contract.services.director_name import short_director_name
+from contract.services.headers import HEADERS
 
 
 def get_company_info(code: str) -> dict:
     url = f"https://opendatabot.ua/c/{code}"
-    response = requests.get(url)
+    response = requests.get(url, headers=HEADERS[randint(0, 9)])
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "lxml")
         main_div = soup.find("div", class_="container bg-white shadow-sm rounded px-4")
