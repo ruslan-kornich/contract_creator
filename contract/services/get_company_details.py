@@ -16,15 +16,14 @@ def get_company_info(code: str) -> dict:
         short_name = (
             main_div.find("div", class_="text-center")
             .find("h1")
-            .text.replace("«", '"')
-            .replace("»", '"')
+            .text
         )
         raw_data_company = main_div.find("div", class_="text-center").find("h2").text
         code_company = "".join([i for i in raw_data_company if i.isdigit()])
         data = main_div.find("div", class_="row").find_all("div", class_="col-12 col")
         name_and_address = [i.find("p").text for i in data]
         full_name = (
-            name_and_address[1].replace("«", '"').replace("»", '"').replace("­", "")
+            name_and_address[1].replace("­", "")
         )
         address = name_and_address[2]
         director = (

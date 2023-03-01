@@ -21,4 +21,4 @@ def get_agreement_date():
     year = current_datetime.year
     month = current_datetime.month
     day = current_datetime.day
-    return f"{day} {MONTHS[month]} {year} р."
+    return f"«{day}» {MONTHS[month]} {year} року"
