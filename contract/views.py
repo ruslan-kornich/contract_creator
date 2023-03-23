@@ -5,6 +5,7 @@ from django.shortcuts import render
 from contract.services.agreement_date import get_agreement_date
 from contract.services.bank_detail import get_bank_name, get_mfo_code
 from contract.services.get_company_details import get_company_info
+from contract.services.get_fop_details import get_fop_info
 from .forms import ContractForm
 from .services.create_contract import contract_create
 
@@ -23,7 +24,8 @@ def create(request):
     if request.method == "POST":
         code = request.POST["code_company"]
         bank_account = request.POST["bank_account"]
-        data = get_company_info(code)
+
+        data = get_fop_info(code) if len(code) == 10 else get_company_info(code)
         mfo = get_mfo_code(bank_account)
         bank_name = get_bank_name(mfo)
         if data:
@@ -38,6 +40,7 @@ def create(request):
             response = FileResponse(open(contract_create(data), "rb"))
 
             return response
+
         else:
             return HttpResponseRedirect("/no-data/")
 

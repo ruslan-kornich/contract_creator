@@ -8,4 +8,3 @@ def short_director_name(name: str) -> str:
         return f"{split_name[1][0]}. {split_name[0]}"
     else:
         return name
-

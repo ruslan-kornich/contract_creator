@@ -13,19 +13,13 @@ def get_company_info(code: str) -> dict:
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "lxml")
         main_div = soup.find("div", class_="container bg-white shadow-sm rounded px-4")
-        short_name = (
-            main_div.find("div", class_="text-center")
-            .find("h1")
-            .text
-        )
+        short_name = main_div.find("div", class_="text-center").find("h1").text
         raw_data_company = main_div.find("div", class_="text-center").find("h2").text
         code_company = "".join([i for i in raw_data_company if i.isdigit()])
         data = main_div.find("div", class_="row").find_all("div", class_="col-12 col")
         name_and_address = [i.find("p").text for i in data]
-        full_name = (
-            name_and_address[1].replace("­", "")
-        )
-        address = name_and_address[2]
+        full_name = name_and_address[1].replace("­", "")
+        address = name_and_address[-1].replace("Україна, ", "")
         director = (
             main_div.find("div", class_="row")
             .find_all("div", class_="col-sm-4 col-6 col")[1]
