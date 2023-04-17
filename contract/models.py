@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -15,3 +16,24 @@ class Company(models.Model):
 
     def __str__(self):
         return f"{self.short_name} - code {self.code_company}"
+
+
+def get_upload_path(instance, filename):
+    return 'contract_templates/{0}/{1}'.format(instance.user.id, filename)
+
+
+class Template(models.Model):
+    name = models.CharField(max_length=255)
+    file = models.FileField(upload_to=get_upload_path)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Contract(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    template = models.ForeignKey(Template, on_delete=models.CASCADE)
+
+
+class ContractFile(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='contracts/')

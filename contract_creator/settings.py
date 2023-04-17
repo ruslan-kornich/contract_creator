@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "docx",
     "contract.apps.ContractConfig",
+    "accounts.apps.AccountsConfig",
 ]
 
 MIDDLEWARE = [
@@ -93,6 +94,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
 BLANK_PATH = env("BLANK_PATH")
 CONTRACT_PATH = env("CONTRACT_PATH")
+
+LOGIN_REDIRECT_URL = '/'
