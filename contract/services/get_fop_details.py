@@ -18,7 +18,6 @@ def get_fop_info(code: str) -> dict:
             main_div[7].find("div").text.replace("Запис в ЄДР:", "").split()[1:]
         )
         director = main_div[11].find("div").find("a").text.lstrip()
-
         final_data = dict(
             {
                 "short_name": short_name,

@@ -11,12 +11,13 @@ from .services.create_contract import contract_create
 
 
 def index(request):
+    user = request.user
     if request.method == "POST":
-        form = ContractForm(request.POST)
+        form = ContractForm(request.POST, user=user)
         if form.is_valid():
             return HttpResponseRedirect("/create/")
     else:
-        form = ContractForm()
+        form = ContractForm(user=user)
     return render(request, "contract/index.html", {"form": form})
 
 
@@ -24,7 +25,7 @@ def create(request):
     if request.method == "POST":
         code = request.POST["code_company"]
         bank_account = request.POST["bank_account"]
-
+        template = request.POST["template_choices"]
         data = get_fop_info(code) if len(code) == 10 else get_company_info(code)
         mfo = get_mfo_code(bank_account)
         bank_name = get_bank_name(mfo)
@@ -36,8 +37,8 @@ def create(request):
                 "date_generate": get_agreement_date(),
             }
             data.update(bank_data)
-            print(data)
-            response = FileResponse(open(contract_create(data), "rb"))
+            template_path = "media/" + template
+            response = FileResponse(open(contract_create(data, template_path), "rb"))
 
             return response
 

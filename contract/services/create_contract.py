@@ -2,8 +2,8 @@ import docx
 from django.conf import settings
 
 
-def contract_create(data: dict) -> str:
-    doc = docx.Document(settings.BLANK_PATH)
+def contract_create(data: dict, blank_path: str) -> str:
+    doc = docx.Document(blank_path)
 
     for i in data:
         for p in doc.paragraphs:
