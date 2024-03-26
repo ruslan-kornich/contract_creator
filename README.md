@@ -4,6 +4,11 @@ The web application creates a standard contract between the supplier of goods an
 It is enough to enter the code (EDPNOU) and the IBAN bank account number of the company with which you want to conclude an agreement.
 At the output, we get a file with a contract in the dox format with filled in data about the company
 The script automatically substitutes all the necessary data for the contract
+## Example  Contract Creator Page 
+
+![Example Short URL page](./screenshots/example.png)
+
+
 ## Getting Started
 
 
